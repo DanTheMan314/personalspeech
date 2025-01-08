@@ -11,11 +11,13 @@ result = model.transcribe("audio.mp3", at_time_res=audio_tagging_time_resolution
 audio_tag_result = whisper.parse_at_label(result, 
 language='follow_asr', 
 top_k=1,  # only care of 1 single class
-p_threshold=-5, # please tune this param
+p_threshold=-999, # please tune this param
 include_class_list=[16]) # 16 is the index of Laughter.
 
 transciptntag = open("transcript.txt","w")
-transciptntag.write(result["text"])
+#transciptntag.write(result["text"])
+
+print(audio_tag_result)
 
 for record in audio_tag_result:
     if record["audio tags"] != []:
